@@ -23,6 +23,56 @@ body {
   background-size: cover;
 }
 
+.holo-effect {
+  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.2) 0%, transparent 70%),
+              radial-gradient(circle at 70% 70%, rgba(255,255,255,0.15) 0%, transparent 60%);
+  animation: holoShine 3s infinite linear;
+}
+
+.hp-box {
+  background: rgba(255,255,255,0.8);
+  padding: 0 4px;
+  border-radius: 4px;
+}
+
+.type-icon {
+  font-size: 0.65rem;
+}
+
+.rarity-number {
+  letter-spacing: 0.5px;
+}
+
+@keyframes holoShine {
+  from { background-position: 0 0, 100% 100%; }
+  to { background-position: 100% 100%, 0 0; }
+}
+
+.overlay-fade {
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* modal card larger appearance */
+.modal-card {
+  width: 100%;
+  height: 100%;
+  max-width: 30rem;
+  max-height: 40rem;
+  border: 8px solid #f3f4f6;
+  box-shadow: 0 0 2rem rgba(255,255,255,0.6);
+  animation: popcard 0.3s ease-out;
+}
+
+@keyframes popcard {
+  from { transform: scale(0.7) rotateX(0deg) rotateY(0deg); opacity: 0; }
+  to { transform: scale(1) rotateX(0deg) rotateY(0deg); opacity: 1; }
+}
+
 /* if custom texture not available, fallback to light gradient */
 @layer utilities {
   .card-texture {
