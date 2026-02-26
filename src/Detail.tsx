@@ -73,7 +73,7 @@ export const Detail = () => {
             spDef: data.stats[4].base_stat,
             speed: data.stats[5].base_stat,
           },
-          description: species.flavor_text_entries[0]?.flavor_text?.replace(/\f/g, " ") || "No description available",
+          description: species.flavor_text_entries[0]?.flavor_text?.replace(/\f/g, " ") || "Nessuna descrizione disponibile",
         });
         setLoading(false);
       } catch (error) {
@@ -87,10 +87,10 @@ export const Detail = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-purple-50">
+      <div className="min-h-screen flex items-center justify-center bg-black">
         <div className="text-center">
           <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-500 mx-auto mb-4"></div>
-          <p className="text-gray-600 text-lg">Caricamento dettagli...</p>
+          <p className="text-gray-300 text-lg">Caricamento dettagli...</p>
         </div>
       </div>
     );
@@ -98,23 +98,36 @@ export const Detail = () => {
 
   if (!pokemon) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-purple-50">
-        <p className="text-gray-600 text-lg">Pokémon non trovato</p>
+      <div className="min-h-screen flex items-center justify-center bg-black">
+        <p className="text-gray-300 text-lg">Pokémon non trovato</p>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 p-8">
+    <div className="min-h-screen bg-black p-8">
       <div className="max-w-4xl mx-auto">
         <Link 
           to="/frontend-rocks"
-          className="inline-flex items-center text-blue-600 hover:text-blue-800 mb-8 font-semibold transition-colors"
+          className="inline-flex items-center text-white hover:text-gray-300 mb-8 font-semibold transition-colors"
         >
           ← Torna alla lista dei Pokémon
         </Link>
 
-        <div className="bg-white rounded-2xl shadow-2xl overflow-hidden">
+        <div
+          className="bg-gray-900 rounded-2xl shadow-2xl overflow-hidden card-3d"
+          onMouseMove={(e) => {
+            const rect = (e.currentTarget as HTMLDivElement).getBoundingClientRect();
+            const dx = e.clientX - (rect.left + rect.width / 2);
+            const dy = e.clientY - (rect.top + rect.height / 2);
+            const rotationY = (dx / rect.width) * 20;
+            const rotationX = (-dy / rect.height) * 20;
+            e.currentTarget.style.transform = `perspective(1000px) rotateX(${rotationX}deg) rotateY(${rotationY}deg)`;
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.transform = "perspective(1000px) rotateX(0deg) rotateY(0deg)";
+          }}
+        >
           <div className="bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 h-32"></div>
 
           <div className="px-8 pb-8">
@@ -131,15 +144,15 @@ export const Detail = () => {
 
               <div className="flex-grow pt-4">
                 <div className="flex items-center gap-4 mb-4">
-                  <h1 className="text-5xl font-black text-gray-900 capitalize">
+                  <h1 className="text-5xl font-black text-white capitalize">
                     {pokemon.name}
                   </h1>
-                  <span className="text-2xl font-bold text-gray-500">
+                  <span className="text-2xl font-bold text-gray-300">
                     #{String(pokemon.id).padStart(3, "0")}
                   </span>
                 </div>
 
-                <p className="text-gray-700 text-lg mb-6 italic leading-relaxed">
+                <p className="text-gray-300 text-lg mb-6 italic leading-relaxed">
                   {pokemon.description}
                 </p>
 
@@ -155,23 +168,23 @@ export const Detail = () => {
                 </div>
 
                 <div className="grid grid-cols-2 gap-4 mb-8">
-                  <div className="bg-blue-50 rounded-lg p-4">
-                    <p className="text-gray-600 text-sm font-semibold mb-1">Altezza</p>
-                    <p className="text-2xl font-bold text-blue-600">{(pokemon.height / 10).toFixed(1)} m</p>
+                  <div className="bg-gray-800 rounded-lg p-4">
+                    <p className="text-gray-300 text-sm font-semibold mb-1">Altezza</p>
+                    <p className="text-2xl font-bold text-white">{(pokemon.height / 10).toFixed(1)} m</p>
                   </div>
-                  <div className="bg-pink-50 rounded-lg p-4">
-                    <p className="text-gray-600 text-sm font-semibold mb-1">Peso</p>
-                    <p className="text-2xl font-bold text-pink-600">{(pokemon.weight / 10).toFixed(1)} kg</p>
+                  <div className="bg-gray-800 rounded-lg p-4">
+                    <p className="text-gray-300 text-sm font-semibold mb-1">Peso</p>
+                    <p className="text-2xl font-bold text-white">{(pokemon.weight / 10).toFixed(1)} kg</p>
                   </div>
                 </div>
 
                 <div className="mb-8">
-                  <h3 className="text-lg font-bold text-gray-900 mb-3">Abilità</h3>
+                  <h3 className="text-lg font-bold text-white mb-3">Abilità</h3>
                   <div className="flex gap-2 flex-wrap">
                     {pokemon.abilities.map((ability) => (
                       <span
                         key={ability}
-                        className="bg-gray-200 text-gray-800 px-4 py-2 rounded-lg text-sm font-semibold capitalize"
+                        className="bg-gray-700 text-gray-200 px-4 py-2 rounded-lg text-sm font-semibold capitalize"
                       >
                         {ability.replace(/-/g, " ")}
                       </span>
@@ -204,8 +217,8 @@ const StatBar = ({ label, value, color }: { label: string; value: number; color:
   return (
     <div>
       <div className="flex justify-between items-center mb-2">
-        <span className="font-semibold text-gray-700 text-sm">{label}</span>
-        <span className="font-bold text-gray-900">{value}</span>
+        <span className="font-semibold text-gray-300 text-sm">{label}</span>
+        <span className="font-bold text-white">{value}</span>
       </div>
       <div className="h-3 bg-gray-200 rounded-full overflow-hidden">
         <div

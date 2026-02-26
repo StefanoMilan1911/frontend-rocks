@@ -1,6 +1,31 @@
 @import "tailwindcss";
 
 body {
-  background-image: url('/geodude-pattern.png');
-  background-repeat: repeat;
+  background-color: #000;
+  color: #f3f4f6;
+}
+
+/* helper class for 3D rotation on hover */
+.card-3d {
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  transition: transform 0.2s ease-out;
+}
+
+.card-3d:hover {
+  /* interactive handlers take priority, but keep baseline scale */
+  transform: rotateY(10deg) rotateX(5deg) scale(1.05);
+}
+
+/* card texture overlay for a more "physical" feel */
+.card-3d > div {
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+/* if custom texture not available, fallback to light gradient */
+@layer utilities {
+  .card-texture {
+    background-image: url('/card-texture.png');
+  }
 }
