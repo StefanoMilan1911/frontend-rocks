@@ -41,7 +41,7 @@ export function Root() {
   return <Card
     id={0}
     image="https://placeholdit.com/400/dddddd/999999"
-    name="Pikachu"
+    name="Dilan"
     types={["grass"]}
     />
 }
