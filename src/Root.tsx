@@ -13,7 +13,6 @@ interface PokemonCardProps {
 }
 
 export const Card: React.FC<PokemonCardProps> = (props) => {
-  const bgColor = getTypeBgColor(props.types[0] || "normal");
   const [rot, setRot] = useState({ x: 0, y: 0 });
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
